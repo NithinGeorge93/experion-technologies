@@ -1,0 +1,617 @@
+@use 'colour' as *;
+@use 'font';
+@use 'mixin' as *;
+
+$w-100: 100%;
+
+body {
+  position: relative;
+}
+
+%layout-box {
+  width: calc(100% - 130px);
+  padding: 20px;
+  margin: auto;
+}
+
+.d-flex {
+  @include flex(flex, space-between, center);
+
+  select {
+    border: 0;
+    outline: 0;
+  }
+
+  img {
+    margin-right: 15px;
+  }
+
+  .b-right {
+    border-right: 2px solid $gray;
+    height: 33px;
+    margin-right: 15px;
+  }
+
+}
+
+.header {
+  @extend %layout-box;
+  @include flex(flex, space-between, center);
+
+  &.heading {
+    @extend %layout-box;
+    padding: 0 20px;
+
+    select {
+      padding: 10px;
+      @include background-color($white, $light-black);
+      border: 1px solid $gray;
+      border-radius: 6px;
+      outline: none;
+    }
+
+    h2 {
+      margin: 0;
+      @include font-size(400, 23px, 20px);
+      @include background-color(initial, $light-black);
+    }
+  }
+
+  p {
+    @include font-size(400, 16px, 14px);
+    color: $light-black;
+    opacity: 0.8;
+  }
+
+  ul {
+    padding: 0;
+
+    li {
+      display: inline-block;
+      margin-right: 10px;
+      @include background-color($filter, $light-black);
+      padding: 5px 10px;
+      border-radius: 4px;
+      @include font-size(400, 16px, 14px);
+
+      .filter-close {
+        padding-left: 5px;
+        cursor: pointer;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.grid {
+  column-count: 4;
+  @extend %layout-box;
+  column-fill: balance;
+
+  .grid__item {
+    margin-bottom: 20px;
+    @include background-color($white, initial);
+    box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.06), 0px 2px 6px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
+    border-radius: 8px;
+    position: relative;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
+
+    &:hover {
+      .add-to-cart {
+        margin-top: 15px;
+        @include box-size(100%, 40px);
+      }
+    }
+
+    .like {
+      @include position(absolute, 15px, initial, initial, 15px);
+      @include box-size(20px, 20px);
+    }
+
+    img {
+      @include box-size(100%, initial);
+      object-fit: contain;
+      border-radius: 8px 8px 0px 0px;
+    }
+
+    .intro {
+      filter: invert(26%) sepia(94%) saturate(6366%) hue-rotate(4deg) brightness(102%) contrast(106%);
+    }
+
+    .product-details {
+      padding: 16px;
+
+      .price,
+      .details {
+        margin-top: 10px;
+        color: $light-black;
+      }
+
+      .details {
+        opacity: 0.7;
+        @include font-size(400, 153%, 14px);
+      }
+
+      .price {
+        @include font-size(700, 19px, 16px);
+      }
+
+      h2 {
+        margin-top: 0;
+        color: $light-black;
+        @include font-size(500, 26px, 18px);
+      }
+    }
+  }
+}
+
+.btn {
+  display: inline-block;
+  margin-bottom: 0;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 0;
+  padding: 6px 12px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  transition-delay: .1s;
+  @include font-size(400, 1.4, 14px);
+
+  &:hover {
+    box-shadow: inset 0px 16px 24px rgba(0, 0, 0, 0.06), 0px 2px 6px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
+  }
+}
+
+.filter {
+  @include position(fixed, 0, initial, 0, 0);
+
+  .filter-block {
+    position: relative;
+    @include box-size(550px, 100vh);
+
+    .close {
+      @include position(absolute, 30px, -20px, initial, initial);
+      @include background-color($white, initial);
+      border-radius: 50%;
+      @include box-size(36px, 36px);
+      @include font-size(700, initial, initial);
+      cursor: pointer;
+      z-index: 2;
+      @include flex(flex, center, center);
+    }
+  }
+
+  .filter-box {
+    @include position(fixed, 0, initial, 0, 0);
+    @include box-size(550px, initial);
+    @include background-color($white, initial);
+    z-index: 1;
+    padding: 30px;
+    padding-bottom: 50px;
+    overflow-y: scroll;
+
+    .sub-title {
+      color: $light-black;
+      margin-top: 20px;
+
+      @include font-size(400, 19px, 16px);
+    }
+
+    .filter-h {
+      margin-top: 0;
+      color: $light-black;
+
+      .close {
+        display: none
+      }
+
+      @include font-size(700, 23px, 20px);
+    }
+
+    .d-block {
+      display: block;
+      float: left;
+      @include box-size(100%, initial);
+    }
+  }
+
+  &::after {
+    content: "";
+    @include position(fixed, 0, 0, 0, 0);
+    @include background-color($medium-black, initial);
+    opacity: 0.7;
+  }
+
+  .filter-btn {
+    position: relative;
+    @extend .d-block;
+
+    .filter-button {
+      @include box-size(550px, 50px);
+      box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.16);
+      z-index: 2;
+      @include position(fixed, initial, initial, 0, 0);
+    }
+  }
+
+  .apply-btn,
+  .clear-btn {
+    @include box-size(50%, 50px);
+  }
+
+  .clear-btn {
+    @include background-color($white, initial);
+  }
+
+  .apply-btn {
+    @include background-color($light-blue, $white);
+
+    @include font-size(400, 19px, 16px);
+
+    &:hover,
+    &:focus,
+    &:active {
+      @include background-color($dark-blue, $white);
+    }
+  }
+}
+
+.know-more {
+  text-decoration: none;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.right-bar {
+  @include background-color($blue, initial);
+  @include box-size(80px, 100vh);
+  float: left;
+  text-align: center;
+
+  @include position(sticky, 0, initial, 0, 0);
+
+  .vector-log {
+    margin-top: 20px;
+    margin-bottom: 100px;
+  }
+
+  .sub-menu {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+.radio-button {
+  margin-bottom: 10px;
+  position: relative;
+  @include box-size(50%, initial);
+  float: left;
+
+  &.w-100 {
+    @include box-size(100%, initial);
+
+    .black {
+      @include background($black, 17px, 17px, 50%, $black);
+      @include position(absolute, 0, 25px, initial, initial);
+    }
+
+    .White {
+      @include background($white, 17px, 17px, 50%, $black);
+      @include position(absolute, 0, 25px, initial, initial);
+    }
+
+    .blue-color {
+      @include background($blue-color, 17px, 17px, 50%, $blue-color);
+      @include position(absolute, 0, 25px, initial, initial);
+    }
+
+    .pink {
+      @include background($pink, 17px, 17px, 50%, $pink);
+      @include position(absolute, 0, 25px, initial, initial);
+    }
+
+    label {
+      margin-left: 50px;
+
+      &::after,
+      &::before {
+        left: -50px;
+      }
+    }
+  }
+
+  input {
+    display: none;
+
+    &:checked~.radio-button-label::after {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  label {
+    cursor: pointer;
+    position: relative;
+    margin-left: 35px;
+    color: $light-black;
+    @include font-size(400, 16px, 14px);
+
+    &::before,
+    &::after {
+      @include position(absolute, -1.5px, -35px, initial, initial);
+
+      transition: all .3s ease-out;
+      z-index: 2;
+    }
+
+    &::before {
+      content: "";
+      border: 1.5px solid $color-gray-shade-1;
+      @include box-size(16px, 16px);
+    }
+
+    &::after {
+      content: "\2713";
+      border: 1.5px solid $color-theme;
+      @include background-color($color-theme, $white);
+      @include flex(flex, center, center);
+      opacity: 0;
+      transform: scale(0);
+      @include box-size(16px, 16px);
+    }
+
+    &:hover {
+      &::before {
+        border-color: $color-theme;
+      }
+    }
+  }
+}
+
+.show-btn {
+  @include background-color($white, $light-blue);
+  border: 1px solid $light-blue;
+  border-radius: 4px;
+}
+
+.add-to-cart {
+  @include background-color($light-blue, $white);
+  border: 1px solid $light-blue;
+  border-radius: 4px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  @include box-size(100%, 0);
+}
+
+.title {
+  @include font-size(700, 35px, 30px);
+  margin: 0;
+}
+
+.active {
+  background-color: $very-light-blue;
+}
+
+.search {
+  width: 350px;
+  position: relative;
+  display: flex;
+  margin-right: 20px;
+
+  .searchTerm {
+    @include box-size(100%, 40px);
+    border: 2px solid $gray;
+    border-left: none;
+    border-radius: 0px 5px 5px 0px;
+    outline: none;
+    padding: 5px;
+    color: $black;
+  }
+
+  .searchButton {
+    @include box-size(40px, 40px);
+    padding: 0 10px;
+    border-radius: 5px 0 0 5px;
+    border: 2px solid $gray;
+    border-right: none;
+    @include background-color($white, initial);
+    text-align: center;
+    cursor: pointer;
+
+    img {
+      filter: invert(97%) sepia(4%) saturate(842%) hue-rotate(191deg) brightness(97%) contrast(90%);
+    }
+  }
+}
+
+.filter-two,
+.mob-hedding {
+  display: none;
+}
+
+.relative {
+  position: relative;
+}
+
+.active-c {
+  opacity: 1 !important;
+}
+
+@media(max-width: 850px) {
+  .grid {
+    column-count: 3;
+  }
+
+  .title-box h2 {
+    font-size: 16px;
+  }
+}
+
+@media(max-width: 750px) {
+  .title-box {
+    display: none;
+  }
+
+  .black,
+  .White,
+  .blue-color,
+  .pink {
+    top: 10px !important;
+  }
+
+  .filter {
+    .filter-block {
+      .close {
+        display: none;
+      }
+    }
+
+    .filter-box {
+      @include position(fixed, 30%, 0, 0, 0);
+      @include box-size(100%, initial);
+      border-radius: 30px;
+      padding: 30px 0;
+
+      .filter-two {
+        display: block;
+        @include box-size(30%, initial);
+        float: left;
+        @include background-color($light-gray, initial);
+
+        ul {
+          padding: 10px;
+          height: 300px;
+          margin-top: 0;
+
+          li {
+            margin: 20px 10px;
+            list-style: none;
+            opacity: 0.7;
+          }
+        }
+      }
+
+      .filter-one {
+        @include box-size(60%, 300px);
+        overflow-y: scroll;
+        float: left;
+
+        .d-block {
+          display: none;
+          margin-top: 10px;
+        }
+
+        .gender-block {
+          display: block;
+        }
+      }
+
+      .filter-h {
+        padding: 0 15px 15px;
+        margin-bottom: 0;
+        border-bottom: 2px solid #E5E5EC;
+        @include flex(flex, space-between, center);
+
+        .close {
+          display: block;
+          @include position(initial, 30%, 0, 0, 0);
+        }
+      }
+    }
+
+    .filter-btn {
+      .filter-button {
+        @include box-size(100%, 50px);
+      }
+    }
+
+    .radio-button {
+      @include box-size(90%, initial);
+      margin-left: 10px;
+      @include font-size(400, initial, 25px);
+    }
+  }
+
+  .right-bar {
+    display: none;
+  }
+
+  .grid,
+  .header.heading,
+  .header {
+    width: calc(100% - 40px);
+  }
+
+  .header.heading {
+    h2 {
+      margin-bottom: 10px;
+    }
+  }
+
+  .header ul li {
+    margin-top: 10px;
+  }
+
+  .search-box {
+    @include flex(flex, space-between, center);
+    @include box-size(100%, 100%);
+
+    span,
+    .search {
+      width: 100%;
+    }
+
+    .d-flex {
+      display: none;
+    }
+  }
+
+  .mob-hedding {
+    display: flex;
+    padding: 10px 30px;
+    border-bottom: 1px solid $light-black;
+
+    .vector-log {
+      filter: invert(44%) sepia(69%) saturate(4486%) hue-rotate(220deg) brightness(101%) contrast(109%);
+    }
+  }
+}
+
+@media(max-width: 600px) {
+  .grid {
+    column-count: 2;
+  }
+
+  .mob-header {
+    display: block;
+  }
+}
+
+@media(max-width: 500px) {
+  .filter {
+    .filter-box {
+      .filter-two {
+        @include box-size(45%, initial);
+      }
+
+      .filter-one {
+        @include box-size(55%, 300px);
+      }
+    }
+  }
+}
+
+@media(max-width: 400px) {
+  .grid {
+    column-count: 1;
+  }
+}
