@@ -59,6 +59,13 @@ function App() {
       $("." + $(e.target).attr("data-id")).show();
       $(e.target).addClass("active-c");
     });
+
+    $('.nav-toggle').off("click").on('click', (e)=> {
+      e.preventDefault();
+      var toggle = $(this).add('.toggle-list');
+      toggle.toggleClass('active-list');
+    });
+
   })
 
   return (
@@ -96,16 +103,25 @@ function App() {
             <img src={vector} />
             <span className='b-right'></span>
             <img src={ellipse} />
-            <select name="product" id="product">
-              <option value="">John Paul</option>
-            </select>
+            <div className='toggle'>
+              <div className="nav-toggle">
+                <a href="#">John Paul</a>
+              </div>
+              <div className="toggle-list" id="nav" role="navigation">
+                <ul className="">
+                  <li><a href="/">Address</a></li>
+                  <li><a href="/">Details</a></li>
+                  <li><a href="/">Log Out</a></li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div className='header mob-header'>
         <div>
           <p>Filters based on your profile</p>
-          <ul>
+          <ul className='filter'>
             <li>Size <span className='filter-close'>&#x2715;</span></li>
             <li>Color <span className='filter-close'>&#x2715;</span></li>
             <li>Nike <span className='filter-close'>&#x2715;</span></li>
