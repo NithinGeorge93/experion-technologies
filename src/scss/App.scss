@@ -525,6 +525,7 @@ body {
 
       a {
         @include background-color($white, $light-black);
+        font-size: 14px;
       }
     }
   }
