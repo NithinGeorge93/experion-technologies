@@ -446,6 +446,10 @@ body {
   opacity: 1 !important;
 }
 
+.mob-header {
+  padding-top: 0;
+}
+
 @media(max-width: 850px) {
   .grid {
     column-count: 3;
