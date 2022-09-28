@@ -121,7 +121,7 @@ function App() {
       <div className='header mob-header'>
         <div>
           <p>Filters based on your profile</p>
-          <ul className='filter'>
+          <ul className='clear'>
             <li>Size <span className='filter-close'>&#x2715;</span></li>
             <li>Color <span className='filter-close'>&#x2715;</span></li>
             <li>Nike <span className='filter-close'>&#x2715;</span></li>
